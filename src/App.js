@@ -4,11 +4,10 @@ import "./Cards.css";
 import Card from "./Card";
 import Countdown from "react-countdown";
 import data from './data.json';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { Stack } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import { blue } from "@mui/material/colors";
+import Header from './Header.js'
+import ScoreBoard from "./ScoreBoard.js";
 
 function App() {
   const uniqueCardsArray = data;
@@ -67,7 +66,7 @@ function App() {
     const [first, second] = openCards;
     enable();
     if (cards[first].type === cards[second].type) {
-      const scoreToAdd = currentPlayer === 1 ? 1 : 10; // Adjust score based on player
+      const scoreToAdd = currentPlayer === 1 ? 1 : 1; // Adjust score based on player
       currentPlayer === 1
         ? setPlayer1Score((score) => score + scoreToAdd)
         : setPlayer2Score((score) => score + scoreToAdd);
@@ -76,7 +75,7 @@ function App() {
     } else {
       timeout.current = setTimeout(() => {
         setOpenCards([]);
-        switchPlayer(); // Switch player if cards don't match
+        switchPlayer();
       }, 500);
     }
   };
@@ -109,98 +108,20 @@ function App() {
     setCards(shuffleCards(uniqueCardsArray.concat(uniqueCardsArray)));
     setGameStarted(false);
   };
-  const handleStartGame = () => {
-    if (player1Name && player2Name) {
-      setGameStarted(true);
-      setTimer(20)
-    }
+  const handleStartGame = (player1, player2, gamestart) => {
+    setPlayer1Name(player1);
+    setPlayer2Name(player2);
+    setGameStarted(gamestart);
+    setTimer(20)
+
   };
-  const Timer = useMemo(() => {
-    return (
-      <Box>
-        {gameStarted && openCards.length !==2 &&(
-          <Countdown
-            key={currentPlayer}
-            date={Date.now() + timer * 1000}
-            renderer={({ seconds }) => seconds}
-            onComplete={switchPlayer}
-          />
-        )}
-      </Box>
-    );
-  }, [gameStarted, currentPlayer]);
 
   return (
     <div className="App">
-      <header>
-        <h3>Memory Game</h3>
-        <div className="player">
-          <span className="player-input">
-            <label>
-              Enter Player 1 Name:
-              <input
-                type="text"
-                value={player1Name}
-                onChange={(e) => setPlayer1Name(e.target.value)}
-              />
-            </label>
-          </span >
-          <span className="player-input">
-            <label>
-              Enter Player 2 Name:
-              <input
-                type="text"
-                value={player2Name}
-                onChange={(e) => setPlayer2Name(e.target.value)}
-              />
-            </label>
-          </span>
-          <button onClick={handleStartGame}>Start Game</button>
-        </div>
-      </header>
+      <Header startGame={handleStartGame} />
+
       <Grid container className="game-data" justifyContent={"center"}>
-        <div className="player-data">
-          <Stack direction="column" spacing={2} justifyContent="space-around">
-            <Box
-              component="section"
-              sx={{
-                p: 2,
-                border: '1px dashed grey',
-                bgcolor: currentPlayer === 1 ? 'lightgreen' : 'transparent',
-                width: { xs: '50%', md: 'auto' }, // Adjust the width for different screen sizes
-              }}
-              className="box-container"
-            >
-              {player1Name}<br /> Score: {player1Score}
-            </Box>
-            <Box
-              component="section"
-              sx={{
-                p: 2,
-                border: '1px dashed grey',
-                width: { xs: '50%', md: 'auto' }, // Adjust the width for different screen sizes
-              }}
-            >
-              Timer: {Timer}
-            </Box>
-            <Box
-              component="section"
-              sx={{
-                p: 2,
-                border: '1px dashed grey',
-                bgcolor: currentPlayer === 2 ? 'lightgreen' : 'transparent',
-                width: { xs: '50%', md: 'auto' }, // Adjust the width for different screen sizes
-              }}
-            >
-              Player 2 <br />Score: {player2Score}
-            </Box>
-            <div className="container1 "  >
-            <Button className="button" variant="contained" onClick={handleRestart} color="primary">
-              Reset
-            </Button>
-          </div>
-          </Stack>
-        </div>
+        <ScoreBoard player1={player1Name} player2={player2Name} score1={player1Score} score2={player2Score} handleRestart={handleRestart} currentPlayer={currentPlayer} openCards={openCards} switchPlayer={switchPlayer} timer={timer} gameStarted={gameStarted}></ScoreBoard>
 
         <div className="container">
           {cards.map((card, index) => {
