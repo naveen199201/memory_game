@@ -1,0 +1,41 @@
+header{
+   
+}
+h3{
+    text-align: center;
+}
+.player{
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    /* text-align: center;     */
+    margin:0 auto;
+
+}
+.player-data{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.game-data{
+    height: 80vh;
+  }
+  
+  .container {
+    border: 1px solid #DEDEDE;
+    padding: 12px;
+    box-shadow: 0 0 4px 4px #DEDEDE; 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    justify-items: center;
+    align-items: stretch;
+    gap: 1rem;
+    margin: 3% ;
+    width: 50%;
+    height: 60vh;
+    perspective: 100%;
+    max-width: 100%;
+  } 

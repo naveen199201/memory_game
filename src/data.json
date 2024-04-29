@@ -1,0 +1,34 @@
+[
+  {
+    "type": "JH",
+    "image": "https://deckofcardsapi.com/static/img/JH.png"
+  },
+  {
+    "type": "KH",
+    "image": "https://deckofcardsapi.com/static/img/KH.png"
+  },
+  {
+    "type": "QH",
+    "image": "https://deckofcardsapi.com/static/img/QH.png"
+  },
+  {
+    "type": "AH",
+    "image": "https://deckofcardsapi.com/static/img/AH.png"
+  },
+  {
+    "type": "JS",
+    "image": "https://deckofcardsapi.com/static/img/JS.png"
+  },
+  {
+    "type": "KS",
+    "image": "https://deckofcardsapi.com/static/img/KS.png"
+  },
+  {
+    "type": "QS",
+    "image": "https://deckofcardsapi.com/static/img/QS.png"
+  },
+  {
+    "type": "AS",
+    "image": "https://deckofcardsapi.com/static/img/AS.png"
+  }
+]

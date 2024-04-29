@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef, useMemo } from "react";
+
+import { useEffect, useState, useRef } from "react";
 import "./Cards.css";
 // import "./App.css";
 import Card from "./Card";
@@ -24,7 +25,7 @@ function App() {
   const [player2Score, setPlayer2Score] = useState(0);
   const [shouldDisableAllCards, setShouldDisableAllCards] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
-  const [timer, setTimer] = useState(null);
+  const [timer, setTimer] = useState(20);
   const timeout = useRef(null);
 
   function shuffleCards(array) {
@@ -84,7 +85,6 @@ function App() {
   }
 
   const switchPlayer = () => {
-    console.log('switch player')
     setCurrentPlayer((prevPlayer) => (prevPlayer === 1 ? 2 : 1)); // Toggle player
     setTimer(20);
   };
@@ -109,26 +109,26 @@ function App() {
     setCards(shuffleCards(uniqueCardsArray.concat(uniqueCardsArray)));
     setGameStarted(false);
   };
+
+  const renderCountdown = () => {
+    if (gameStarted && openCards.length !== 2) {
+      return (
+        <Countdown
+          key={currentPlayer}
+          date={Date.now() + timer * 1000}
+          renderer={({ seconds }) => seconds}
+          onComplete={switchPlayer}
+          controlled={false}
+        />
+      );
+    }
+    return null;
+  };
   const handleStartGame = () => {
     if (player1Name && player2Name) {
       setGameStarted(true);
-      setTimer(20)
     }
   };
-  const Timer = useMemo(() => {
-    return (
-      <Box>
-        {gameStarted && openCards.length !==2 &&(
-          <Countdown
-            key={currentPlayer}
-            date={Date.now() + timer * 1000}
-            renderer={({ seconds }) => seconds}
-            onComplete={switchPlayer}
-          />
-        )}
-      </Box>
-    );
-  }, [gameStarted, currentPlayer]);
 
   return (
     <div className="App">
@@ -181,7 +181,7 @@ function App() {
                 width: { xs: '50%', md: 'auto' }, // Adjust the width for different screen sizes
               }}
             >
-              Timer: {Timer}
+              Timer: {renderCountdown()}
             </Box>
             <Box
               component="section"
@@ -224,3 +224,21 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
