@@ -1,58 +1,61 @@
-import React,{useMemo} from 'react'
+import React, { useMemo } from 'react'
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { Stack } from '@mui/material';
 import Countdown from "react-countdown";
 
-const ScoreBoard = ({player1, player2,score1, score2, handleRestart, currentPlayer,openCards, switchPlayer, timer, gameStarted}) => {
+const ScoreBoard = ({ player1, player2, score1, score2, handleRestart, currentPlayer, openCards, switchPlayer, timer, gameStarted }) => {
 
     const restart = () => {
         handleRestart()
-      };
-      const Timer = useMemo(() => {
+    };
+    const Timer = useMemo(() => {
         return (
-          <Box>
-            {gameStarted && openCards.length !==2 &&(
-              <Countdown
-                key={currentPlayer}
-                date={Date.now() + timer * 1000}
-                renderer={({ seconds }) => seconds}
-                onComplete={switchPlayer}
-              />
-            )}
-          </Box>
+            <Box>
+                {gameStarted && openCards.length !== 2 && (
+                    <Countdown
+                        key={currentPlayer}
+                        date={Date.now() + timer * 1000}
+                        renderer={({ seconds }) => seconds}
+                        onComplete={switchPlayer}
+                    />
+                )}
+            </Box>
         );
-      }, [gameStarted, currentPlayer]);
+    }, [gameStarted, currentPlayer]);
+
     return (
         <div className="player-data">
-            <Stack direction="column" spacing={2} justifyContent="space-around">
+            <Stack className='player-data-box' justifyContent="space-between">
                 <Box
-                    component="section"
                     sx={{
                         p: 2,
+                        pb: 8,
                         border: '1px dashed grey',
+                        textAlign: 'center',
                         bgcolor: currentPlayer === 1 ? 'lightgreen' : 'transparent',
-                        width: { xs: '50%', md: 'auto' }, // Adjust the width for different screen sizes
+                        width: { xs: '50%', md: 'auto' },
                     }}
-                    className="box-container"
                 >
                     {player1}<br /> Score: {score1}
                 </Box>
                 <Box
-                    component="section"
                     sx={{
                         p: 2,
+                        pb: 8,
                         border: '1px dashed grey',
+                        textAlign: 'center',
                         width: { xs: '50%', md: 'auto' }, // Adjust the width for different screen sizes
                     }}
                 >
                     Timer: {Timer}
                 </Box>
                 <Box
-                    component="section"
                     sx={{
                         p: 2,
+                        pb: 8,
                         border: '1px dashed grey',
+                        textAlign: 'center',
                         bgcolor: currentPlayer === 2 ? 'lightgreen' : 'transparent',
                         width: { xs: '50%', md: 'auto' }, // Adjust the width for different screen sizes
                     }}
@@ -60,7 +63,7 @@ const ScoreBoard = ({player1, player2,score1, score2, handleRestart, currentPlay
                     {player2} <br />Score: {score2}
                 </Box>
                 <div className="container1 "  >
-                    <Button className="button" variant="contained" onClick={restart} color="primary">
+                    <Button className='reset-button' variant="contained" onClick={restart} color="primary" >
                         Reset
                     </Button>
                 </div>

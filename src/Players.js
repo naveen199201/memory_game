@@ -12,33 +12,32 @@ const Players = () => {
     };
     return (
         <div>
-            <header>
-                <h3>Memory Game</h3>
-                <div className="player">
-                    <span className="player-input">
-                        <label>
-                            Enter Player 1 Name:
-                            <input
-                                type="text"
-                                value={player1Name}
-                                onChange={(e) => setPlayer1Name(e.target.value)}
-                            />
-                        </label>
-                    </span >
-                    <span className="player-input">
-                        <label>
-                            Enter Player 2 Name:
-                            <input
-                                type="text"
-                                value={player2Name}
-                                onChange={(e) => setPlayer2Name(e.target.value)}
-                            />
-                        </label>
-                    </span>
-                    <button onClick={handleStartGame}>Start Game</button>
-                </div>
-            </header>
+            <h3>Memory Game</h3>
+            <div className="player">
+                <span className="player-input">
+                    <label className='player-name'>
+                        Enter Player 1 Name:
+                        <input
+                            type="text"
+                            value={player1Name}
+                            onChange={(e) => setPlayer1Name(e.target.value)}
+                        />
+                    </label>
+                </span >
+                <span className="player-input">
+                    <label classname="player-name">
+                        Enter Player 2 Name:
+                        <input
+                            type="text"
+                            value={player2Name}
+                            onChange={(e) => setPlayer2Name(e.target.value)}
+                        />
+                    </label>
+                </span>
+                <button onClick={handleStartGame}>Start Game</button>
             </div>
+
+        </div>
     )
 }
 

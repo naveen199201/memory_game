@@ -83,7 +83,6 @@ function App() {
   }
 
   const switchPlayer = () => {
-    console.log('switch player')
     setCurrentPlayer((prevPlayer) => (prevPlayer === 1 ? 2 : 1)); // Toggle player
     setTimer(20);
   };
@@ -113,32 +112,37 @@ function App() {
     setPlayer2Name(player2);
     setGameStarted(gamestart);
     setTimer(20)
-
   };
 
   return (
     <div className="App">
-      <Header startGame={handleStartGame} />
-
-      <Grid container className="game-data" justifyContent={"center"}>
-        <ScoreBoard player1={player1Name} player2={player2Name} score1={player1Score} score2={player2Score} handleRestart={handleRestart} currentPlayer={currentPlayer} openCards={openCards} switchPlayer={switchPlayer} timer={timer} gameStarted={gameStarted}></ScoreBoard>
-
-        <div className="container">
-          {cards.map((card, index) => {
-            return (
-              <Card
-                key={index}
-                card={card}
-                index={index}
-                isDisabled={shouldDisableAllCards}
-                isInactive={checkIsInactive(card)}
-                isFlipped={checkIsFlipped(index)}
-                onClick={handleCardClick}
-              />
-            );
-          })}
-        </div>
+      <Grid container justifyContent={'center'}>
+        <Header startGame={handleStartGame} />
       </Grid>
+      <div className="bottom">
+        <Grid container sm={6}xs={12} className="game-data" justifyContent={'center'}>
+          <Grid item sm={4} xs={12} className="scorebaord-container">
+            <ScoreBoard player1={player1Name} player2={player2Name} score1={player1Score} score2={player2Score} handleRestart={handleRestart} currentPlayer={currentPlayer} openCards={openCards} switchPlayer={switchPlayer} timer={timer} gameStarted={gameStarted}></ScoreBoard>
+          </Grid>
+          <Grid item sm={8}xs={12} justifyContent={'center'}>
+            <div className="container">
+              {cards.map((card, index) => {
+                return (
+                  <Card
+                    key={index}
+                    card={card}
+                    index={index}
+                    isDisabled={shouldDisableAllCards}
+                    isInactive={checkIsInactive(card)}
+                    isFlipped={checkIsFlipped(index)}
+                    onClick={handleCardClick}
+                  />
+                );
+              })}
+            </div>
+          </Grid>
+        </Grid>
+      </div>
     </div>
 
   );
